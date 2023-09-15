@@ -23,6 +23,7 @@ export class Text extends DrawingElement{
     SetStyle(){
         this.element.style.fontFamily = "Verdana";
         this.element.style.fill = "#000000";
+        this.element.innerHTML = "testo";
         this.element.style.fontSize = 2;
         
     }
