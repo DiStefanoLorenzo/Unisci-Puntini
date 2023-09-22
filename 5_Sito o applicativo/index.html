@@ -9,28 +9,74 @@
 
     <title>Lorenzo Di Stefano - Progetto</title>
     </head>
+    <!-- BODY -->
     <body>
         <header>
-            <Button id="hamb"></Button>
+            <Button id="hamb"><img src="./img/hamburger.png" alt=""></Button>
         </header>
         <section>
             <div id="page">
-                <svg id="drawingpage" height="200" width="500">
-
-                </svg>
+                <canvas id="drawingpage" height="500px" width="200%" style="border:1px solid #d3d3d3;margin-left: 25%;">
+                </canvas>
             </div>
+
+            <!-- Menu -->
+            <div id="menu" style="display: none;">
+                <div class="menuElements">
+                    <input type="file" id="carica-immagine" accept="image/*" style="display: none;">
+                    <label for="carica-immagine" id="label-carica-immagine">Scegli un'immagine</label>
+                </div>
+                <div class="menuElements">
+                    <button id="esporta-immagine" style="display: none;"></button>
+                    <label for="esporta-immagine" id="label-esporta-immagine">Esporta immagine</label>
+                    
+                </div>
+            </div>
+
+            <!-- Strumenti -->
             <div id="tools">
                 <div id="pointlabel">Point</div>
-                <button class="toolbutton"></button>
-                <button class="toolbutton"></button>
+                <center>
+                    <button class="toolbutton">
+                        <img src="img/mouse.png" alt="">
+                    </button>
+                    <button class="toolbutton">
+                        <img src="img/point.jpg" alt="">
+                    </button>
+                </center>
 
             </div>
-            <div id="layers">
-                
+
+            <!-- Layer -->
+            <div id="layerssection">
+                <div id="layers1">
+                    <button id="layersExtender"></button>
+                </div>
+                <div id="layers2">
+                    <div class="layer">
+                        <button class="laybtn" id="laybtn1">
+                            <img src="/img/eye.png" alt="">
+                        </button>
+                    </div>
+                    <div class="layer">
+                        <button class="laybtn" id="laybtn1">
+                            <img src="/img/eye.png" alt="">
+                        </button>
+                    </div>
+                    <div class="layer">
+                        <button class="laybtn" id="laybtn1">
+                            <img src="/img/eye.png" alt="">
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- Script -->
             <script type="module" src="./js/main.js"></script>
             <script type="module" src="./js/draw/drawingElement.js"></script>
             <script type="module" src="./js/draw/text.js"></script>
+            <script type="module" src="./js/file/import.js"></script>
+            <script type="module" src="./js/file/export.js"></script>
         </section>
     </body>
 </html>

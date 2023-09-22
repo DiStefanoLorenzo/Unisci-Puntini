@@ -1,30 +1,19 @@
-import {DrawingElement} from "./drawingElement.js"
-import {Point} from "./point.js"
-
-export class Text extends DrawingElement{
-    punto;
-
-    constructor(
-        id,
-        x,
-        y
-    ){
+import { DrawingElement } from "./drawingElement.js";
+import { Point } from "./point.js";
+export class Text extends DrawingElement {
+    constructor(id, x, y) {
         // Super
         super(id);
+        this.canvas = document.getElementById("drawingpage");
         // Point
-        this.punto = new Point(x,y,4);
+        this.punto = new Point("0", x, y);
         // Creazione elemento HTML
-        this.element = document.createElement("text");
-        this.element.id = this.id;
-        this.SetStyle();
-        document.getElementById("drawingpage").appendChild(this.element);
+        this.element = this.canvas.getContext("2d");
+        //this.element.id = this.id;
+        this.setStyle();
     }
-
-    SetStyle(){
-        this.element.style.fontFamily = "Verdana";
-        this.element.style.fill = "#000000";
-        this.element.innerHTML = "testo";
-        this.element.style.fontSize = 2;
-        
+    setStyle() {
+        this.element.font = "90% Arial Black";
+        this.element.strokeText("Hello World", this.position.x, this.position.y);
     }
 }

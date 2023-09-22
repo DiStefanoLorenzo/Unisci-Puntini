@@ -1,5 +1,7 @@
+/* HTML ELEMENTS*/
+
 body{
-    margin: 0;
+    margin: 0%;
 }
 
 header {
@@ -9,19 +11,88 @@ header {
 }
 
 section {
-    background-color: orange;
-    margin: 0px;
-    height: 100%;
-    min-height: 100%;
+    background-color: rgb(172, 188, 189);
+    margin: 0%;
+    width: 100%;
 }
 
-#layers {
+img {
+    height: 100%;
+    width: 40px;
+    margin: 0%;
+}
+
+/* CLASSES */
+
+.menuElements:hover{
     background-color: gray;
+}
+
+.menuElements {
+    width: auto;
+    padding: 5%;
+    margin: 0%;
+    border: solid;
+    border-radius: 1px;
+    border-color: black;
+}
+
+.toolbutton {
+    margin: 5%;
+}
+
+.layer {
+    margin: 2%;
+    margin-right: 10%;
+    padding: 1%;
+    border: solid;
+    background-color: rgb(30, 30, 30);
+}
+
+.laybtn img{
+    width: 50px;
+    height: 50px;
+}
+
+/* ID */
+
+#drawingpage{
+    background-color: white;
+}
+
+#layersExtender {
+    margin-top: 100px;
+    height: 60px;
+
+}
+
+#layerssection {
+    background-color: rgb(30, 31, 31);
     position: absolute;
+    display: flex;
+    padding: 0%;
     height: 35%;
-    width: 50%;
-    bottom: 0px;
-    right: 0px;
+    min-width: 100px;
+    width: 30%;
+    bottom: 0%;
+    right: 0%;
+}
+
+#layers1{
+    margin: 0;
+    padding: 0%; 
+    min-width: 10%;
+    height: 100%; 
+    background-color: rgb(30, 31, 31);
+}
+
+#layers2{
+    margin: 0%;
+    max-width: 90%;
+    min-width: 90%;
+    padding: 1%;
+    right: 0;
+    background-color: rgb(90, 96, 97);
 }
 
 #tools {
@@ -33,14 +104,20 @@ section {
     left: 0px;
 }
 
-#hamb {
-    margin: 1%;
-    height: 70%;
-    width: auto;
+#menu {
+    background-color: white;
+    position: absolute;
+    border: solid;
+    height: 50%;
+    min-width: 150px;
+    width: 30%;
+    top: 70px;
+    left: 0px;
+    display: "none";
 }
 
 #pointlabel {
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(40, 40, 40);
     font-size: 100%;
     font-family: "Arial Black";
     color: white;
@@ -50,8 +127,9 @@ section {
 
 }
 
-.toolbutton {
-    width: 30%;
-    height: 10%;
-    margin: 5%;
+#hamb {
+    margin: 1%;
+    padding: 0%;
+    height: 70%;
+    width: auto;
 }
