@@ -1,64 +1,44 @@
+import { Point } from "./draw/point.js";
+import * as operations from "./operations.js";
+/**
+ * @author Lorenzo Di Stefano
+ * @version 22.09.2023
+ */
 // DICHIARAZIONE VARIABILI.
 var mouseClicks = 0;
 var mousePosition = {
     x: 0,
     y: 0
 };
-export var actions = {
-    useMouse: true,
-    insertPoint: false,
-    insertLine: false,
-    insertCircle: false,
-    draw: false,
-    cancel: false
+var pageSize = {
+    x: 0,
+    y: 0
 };
-// FUNZIONI ACTION.
-function actionsReset() {
-    // Actions.
-    actions.useMouse = false;
-    actions.insertPoint = false;
-    actions.insertLine = false;
-    actions.insertCircle = false;
-    actions.draw = false;
-    actions.cancel = false;
-    // Reset contatori.
-    mouseClicks = 0;
+function pageClickEvent() {
+    mouse();
+    point();
 }
-export function useMouse() {
-    actionsReset();
-    actions.useMouse = true;
-}
-export function insertPoint() {
-    actionsReset();
-    actions.insertPoint = true;
-}
-export function insertLine() {
-    actionsReset();
-    actions.insertLine = true;
-}
-export function insertCircle() {
-    actionsReset();
-    actions.insertCircle = true;
-}
-export function draw() {
-    actionsReset();
-    actions.draw = true;
-}
-export function cancel() {
-    actionsReset();
-    actions.cancel = true;
-}
-// INPUT AZIONI
-function createPoint() {
-    if (actions.insertPoint) {
+function mouse() {
+    if (operations.actions.useMouse) {
+        console.log("Mouse: " + mousePosition.x + "," + mousePosition.y);
     }
 }
-function pageClickEvent() {
+var punto;
+function point() {
+    if (operations.actions.insertPoint) {
+        console.log("Point: " + mousePosition.x + "," + mousePosition.y);
+        punto = new Point(5, "767", mousePosition.x, mousePosition.y);
+        // PROVA
+    }
 }
 // EVENTI PAGINA DI DISEGNO.
 const drawingPage = document.getElementById("drawingpage");
 drawingPage.addEventListener("click", pageClickEvent);
+drawingPage.addEventListener("mousedown", () => { });
+drawingPage.addEventListener("mouseup", () => { });
 document.addEventListener("mousemove", (event) => {
-    mousePosition.x = event.clientX;
-    mousePosition.y = event.clientY;
+    pageSize.x = document.body.clientWidth;
+    pageSize.y = document.body.clientHeight;
+    mousePosition.x = event.clientX - pageSize.x / 4;
+    mousePosition.y = event.clientY - 60;
 });

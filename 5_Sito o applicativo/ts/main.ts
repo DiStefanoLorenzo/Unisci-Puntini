@@ -1,30 +1,24 @@
-import {Text} from "./draw/text.js"
+import {Text} from "./draw/text.js";
+import { Button } from "./gui/button.js";
+import * as operators from "./operations.js";
 
-var txt;
-var menu = document.getElementById("menu") as HTMLElement;
-var tools = document.getElementById("tools") as HTMLElement;
+/**
+ * @author Lorenzo Di Stefano
+ * @version 22.09.2023
+ */
 
-var open = false;
+// Bottone hamburger.
+export const HMBBTN = new Button(operators.hamburgerOperation,"../img/hamburger.png","../img/x.png","hamb");
 
-function Pulsante(){
-    txt = new Text("hello",2,2);
-    console.log("Point:"+txt.punto.position.x);
+// Bottoni della toolbar.
+export const MOUSE_BTN  = new Button(operators.useMouse,"../img/mouse.png","../img/mouse.png","toolbtn1"); 
+export const POINT_BTN  = new Button(operators.insertPoint,"../img/point.png","../img/point.png","toolbtn2");
+export const PENCIL_BTN = new Button(operators.draw,"../img/pencil.png","../img/pencil.png","toolbtn3"); 
+export const ERASER_BTN = new Button(operators.cancel,"../img/eraser.png","../img/eraser.png","toolbtn4"); 
+export const SQUARE_BTN = new Button(operators.insertSquare,"../img/square.png","../img/square.png","toolbtn5"); 
+export const CIRCLE_BTN = new Button(operators.insertCircle,"../img/circle.png","../img/circle.png","toolbtn6");  
 
-    var c = document.getElementById("drawingpage") as HTMLCanvasElement;
-    var ctx = c.getContext("2d")!;
-    ctx.moveTo(0,0);
-    ctx.lineTo(200,100);
-    ctx.stroke();
-
-    open = !open;
-    if(open){
-        tools.style.display = "none";
-        menu.style.display = "block";
-    }else{
-        tools.style.display = "block";
-        menu.style.display = "none";
-    }
-}
-
-const Buttone = document.getElementById("hamb") as HTMLElement;
-Buttone.addEventListener("click", Pulsante);
+// Bottoni di visibilità dei layer.
+export const LAYBTN1 = new Button(operators.nothing,"../img/eye.png","../img/barred_eye.png","laybtn1");     //Bottone Layer 1.
+export const LAYBTN2 = new Button(operators.nothing,"../img/eye.png","../img/barred_eye.png","laybtn2");     //Bottone Layer 2.
+export const LAYBTN3 = new Button(operators.nothing,"../img/eye.png","../img/barred_eye.png","laybtn3");     //Bottone Layer 3.

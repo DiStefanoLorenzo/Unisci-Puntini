@@ -1,8 +1,13 @@
 import {DrawingElement} from "./drawingElement.js"
 import {Point} from "./point.js"
 
+/**
+ * @author Lorenzo Di Stefano
+ * @version 22.09.2023
+ */
+
 export class Text extends DrawingElement{
-    punto;
+    //punto;
 
     constructor(
         id: string,
@@ -13,7 +18,7 @@ export class Text extends DrawingElement{
         super(id);
         this.canvas = document.getElementById("drawingpage") as HTMLCanvasElement;
         // Point
-        this.punto = new Point("0",x,y);
+        //this.punto = new Point("0",x,y);
         // Creazione elemento HTML
         this.element = this.canvas.getContext("2d")!;
         //this.element.id = this.id;

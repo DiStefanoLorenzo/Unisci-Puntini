@@ -1,5 +1,8 @@
 import { DrawingElement } from "./drawingElement.js";
-import { Point } from "./point.js";
+/**
+ * @author Lorenzo Di Stefano
+ * @version 22.09.2023
+ */
 export class Line extends DrawingElement {
     constructor(id, x, y) {
         // Super
@@ -18,8 +21,8 @@ export class Line extends DrawingElement {
     // MODIFICA.
     addPoint(x, y) {
         var id = this.points.length;
-        var p = new Point(String(id), x, y);
-        this.points.push(p);
+        //var p = new Point(String(id),x,y);
+        //this.points.push(p);
     }
     moveLine() {
     }

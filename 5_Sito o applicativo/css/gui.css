@@ -1,7 +1,9 @@
-/* HTML ELEMENTS*/
+/*=====================================*/
+/* ELEMENTI HTML*/
 
 body{
     margin: 0%;
+    background-color: rgb(172, 188, 189);
 }
 
 header {
@@ -13,16 +15,17 @@ header {
 section {
     background-color: rgb(172, 188, 189);
     margin: 0%;
+    padding: 0%;
     width: 100%;
 }
 
-img {
-    height: 100%;
-    width: 40px;
-    margin: 0%;
+button {
+    height: 50px;
+    width: 50px;
 }
 
-/* CLASSES */
+/*=====================================*/
+/* CLASSI */
 
 .menuElements:hover{
     background-color: gray;
@@ -49,15 +52,22 @@ img {
     background-color: rgb(30, 30, 30);
 }
 
-.laybtn img{
-    width: 50px;
-    height: 50px;
-}
-
+/*=====================================*/
 /* ID */
+#page {
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+}
 
 #drawingpage{
     background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow:auto;
+    margin-left: 25%;
+    margin-right: 5%;
+    margin-bottom: 0%;
 }
 
 #layersExtender {
@@ -71,7 +81,7 @@ img {
     position: absolute;
     display: flex;
     padding: 0%;
-    height: 35%;
+    height: auto;
     min-width: 100px;
     width: 30%;
     bottom: 0%;
@@ -96,10 +106,11 @@ img {
 }
 
 #tools {
-    background-color: gray;
+    background-color: rgb(90, 96, 97);
     position: absolute;
     height: 50%;
     width: 20%;
+    max-width: 200px;
     top: 70px;
     left: 0px;
 }
@@ -117,7 +128,7 @@ img {
 }
 
 #pointlabel {
-    background-color: rgb(40, 40, 40);
+    background-color: rgb(30, 31, 31);
     font-size: 100%;
     font-family: "Arial Black";
     color: white;
@@ -128,8 +139,6 @@ img {
 }
 
 #hamb {
-    margin: 1%;
+    margin: 10px;
     padding: 0%;
-    height: 70%;
-    width: auto;
 }
