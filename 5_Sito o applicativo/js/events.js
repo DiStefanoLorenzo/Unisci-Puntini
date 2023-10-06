@@ -6,6 +6,9 @@ import * as operations from "./operations.js";
  */
 // DICHIARAZIONE VARIABILI.
 var mouseClicks = 0;
+var mouseIsClicking = false;
+var pointSelected = false;
+var punti = [];
 var mousePosition = {
     x: 0,
     y: 0
@@ -14,31 +17,92 @@ var pageSize = {
     x: 0,
     y: 0
 };
+function getPageInfo() {
+    pageSize.x = document.body.clientWidth;
+    pageSize.y = document.body.clientHeight;
+}
+function getMouseInfo(event) {
+    mousePosition.x = event.clientX - pageSize.x / 4;
+    mousePosition.y = event.clientY - 60;
+}
+function resetPoints() {
+    for (var punto of punti) {
+        punto.isMoving = false;
+    }
+    pointSelected = false;
+}
 function pageClickEvent() {
-    mouse();
     point();
 }
-function mouse() {
+function pageMoveEvent() {
+    mouseMove();
+    mouseSelect();
+    pencil();
+    eraser();
+}
+function mouseSelect() {
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if (operations.actions.useMouse) {
-        console.log("Mouse: " + mousePosition.x + "," + mousePosition.y);
+        for (var punto of punti) {
+            if (punto.getIsMoving() || pointSelected) {
+                return;
+            }
+            punto.checkIsMoving(mousePosition.x, mousePosition.y);
+            if (punto.getIsMoving()) {
+                pointSelected = true;
+            }
+        }
     }
 }
-var punto;
+function mouseMove() {
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
+    if (operations.actions.useMouse) {
+        for (var punto of punti) {
+            if (punto.getIsMoving()) {
+                punto.move(mousePosition.x, mousePosition.y);
+            }
+            console.log(punto.getIsMoving());
+            punto.draw();
+        }
+        console.log("============" + punti.length);
+    }
+}
 function point() {
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO POINT
     if (operations.actions.insertPoint) {
-        console.log("Point: " + mousePosition.x + "," + mousePosition.y);
-        punto = new Point(5, "767", mousePosition.x, mousePosition.y);
-        // PROVA
+        punti.push(new Point(5, String(punti.length), mousePosition.x, mousePosition.y));
+    }
+}
+function pencil() {
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO PENCIL
+    if (operations.actions.draw) {
+    }
+}
+function eraser() {
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO ERASER
+    if (operations.actions.cancel) {
     }
 }
 // EVENTI PAGINA DI DISEGNO.
 const drawingPage = document.getElementById("drawingpage");
+// MOUSE CLICK
 drawingPage.addEventListener("click", pageClickEvent);
-drawingPage.addEventListener("mousedown", () => { });
-drawingPage.addEventListener("mouseup", () => { });
-document.addEventListener("mousemove", (event) => {
-    pageSize.x = document.body.clientWidth;
-    pageSize.y = document.body.clientHeight;
-    mousePosition.x = event.clientX - pageSize.x / 4;
-    mousePosition.y = event.clientY - 60;
+// MOUSE MOVE
+drawingPage.addEventListener("mousemove", () => {
+    getPageInfo();
+    getMouseInfo(event);
+    if (mouseIsClicking) {
+        pageMoveEvent();
+    }
+    else {
+        resetPoints();
+    }
+});
+// MOUSE DOWN
+drawingPage.addEventListener("mousedown", () => {
+    mouseIsClicking = true;
+});
+// MOUSE UP
+drawingPage.addEventListener("mouseup", () => {
+    mouseIsClicking = false;
 });
