@@ -17,8 +17,8 @@
         <section>
             <!-- Pagina di disegno -->
             <div id="page">
-                <canvas height="750" width="800" id="drawingpage">
-                </canvas>
+                <svg height="750" width="800" id="drawingpage">
+                </svg>
             </div>
 
             <!-- Menu -->
@@ -46,6 +46,10 @@
                     <button class="toolbutton" id="toolbtn6"></button>
                 </center>
                 <div class="toollabel">Opzioni</div>
+                <center>
+                    <button class="toolbutton" id="toolbtn7"><input type="color" id="color-input"></button>
+                    <button class="toolbutton" id="toolbtn8"></button>
+                </center>
             </div>
 
             <!-- Layer -->
@@ -69,6 +73,7 @@
             <!-- Script -->
             <script type="module" src="./js/main.js"></script>
             <script type="module" src="./js/events.js"></script>
+            <script type="module" src="./js/counters.js"></script>
             <script type="module" src="./js/operations.js"></script>
             <script type="module" src="./js/draw/drawingElement.js"></script>
             <script type="module" src="./js/draw/point.js"></script>

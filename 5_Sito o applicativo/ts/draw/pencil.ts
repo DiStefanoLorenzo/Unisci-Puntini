@@ -24,8 +24,7 @@ export class Pencil extends DrawingElement{
         this.position.y = y;
         this.radius = radius;
         // Costruzione del Point nel CANVAS.
-        this.canvas = document.getElementById("drawingpage") as HTMLCanvasElement;
-        this.element = this.canvas.getContext("2d")!;
+        this.svg = document.getElementById("drawingpage") as HTMLElement;
         this.element.beginPath();
         this.element.arc(x,y,radius,0,2*Math.PI);
         this.element.fill();

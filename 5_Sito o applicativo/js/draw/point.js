@@ -15,26 +15,26 @@ export class Point extends DrawingElement {
         this.position.y = y;
         this.radius = radius;
         this.isMoving = false;
-        // Costruzione del Point nel CANVAS.
-        this.canvas = document.getElementById("drawingpage");
-        this.element = this.canvas.getContext("2d");
-        this.element.beginPath();
-        this.element.arc(x, y, radius, 0, 2 * Math.PI);
-        this.element.fill();
-        console.log("Point: " + this.position.x + "," + this.position.y);
+        // Costruzione del Point nel SVG.
+        this.svg = document.getElementById("drawingpage");
+        this.element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        // Metodi di costruzione.
+        this.draw();
     }
     // GETTERS
     getIsMoving() {
         return this.isMoving;
     }
+    // SETTERS
+    setIsMoving(value) {
+        this.isMoving = value;
+    }
     // CONTROLLI
     checkIsMoving(x, y) {
-        //y -= this.radius;
         if (x >= (this.position.x - this.radius * 2) &&
             y >= (this.position.y - this.radius * 2) &&
             x <= (this.position.x + this.radius * 2) &&
             y <= (this.position.y + this.radius * 2)) {
-            console.log("L'oggetto è stato selezionato " + this.id);
             this.isMoving = true;
         }
         else {
@@ -43,14 +43,19 @@ export class Point extends DrawingElement {
     }
     // AZIONI
     move(x, y) {
-        this.element.clearRect(this.position.x - this.radius * 1.2, this.position.y - this.radius, this.radius * 3, this.radius * 3);
         this.position.x = x;
         this.position.y = y;
-        this.draw();
+        this.element.setAttribute("cx", String(this.position.x));
+        this.element.setAttribute("cy", String(this.position.y));
     }
     draw() {
-        this.element.beginPath();
-        this.element.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-        this.element.fill();
+        this.element.setAttribute("cx", String(this.position.x));
+        this.element.setAttribute("cy", String(this.position.y));
+        this.element.setAttribute("r", String(this.radius));
+        this.element.setAttribute("fill", this.color);
+        this.svg.appendChild(this.element);
+    }
+    remove() {
+        this.svg.removeChild(this.element);
     }
 }

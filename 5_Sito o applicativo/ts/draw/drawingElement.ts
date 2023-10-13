@@ -5,13 +5,20 @@
  */
 
 export class DrawingElement{
-    protected element: CanvasRenderingContext2D;
-    protected canvas: HTMLCanvasElement;
+    protected element: any;
+    protected svg: HTMLElement;
     
-    protected width: number;
+    protected width : number;
     protected height: number;  
-    
-    protected layer: number;
+    protected size  : number;
+
+    protected layer : number;
+
+    protected color : string;
+
+    protected visible : boolean;
+
+
 
     protected position = {
         x: 0,
@@ -21,11 +28,15 @@ export class DrawingElement{
     constructor(
         protected id: string
     ){
-        this.canvas = document.getElementById("drawingpage") as HTMLCanvasElement;
-        this.element = this.canvas.getContext("2d")!;
+        this.svg = document.getElementById("drawingpage") as HTMLElement;
 
-        this.width = 0;
+        this.width  = 0;
         this.height = 0;
-        this.layer = 1;
+        this.layer  = 1;
+        this.size   = 1;
+
+        this.color  = "black";
+
+        this.visible = true;
     }
 }

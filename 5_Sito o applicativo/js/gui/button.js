@@ -7,12 +7,12 @@ export class Button extends GUIElement {
     constructor(operation = () => { }, // Funzione da eseguire al click del pulsante.
     scrFirstImage = "", // Percorso dell'immagine di sfondo.
     scrSecondImage = "", // Percorso dell'immagine di sfondo.
-    id // ID dell'elemnto HTML.
-    ) {
+    styleChanger, id) {
         super(id);
         this.operation = operation;
         this.scrFirstImage = scrFirstImage;
         this.scrSecondImage = scrSecondImage;
+        this.styleChanger = styleChanger;
         // Assegnazione dei valori.
         this.status = false;
         this.element = document.getElementById(id);
@@ -49,6 +49,9 @@ export class Button extends GUIElement {
      * OFF  -> ON
      */
     changeStatus() {
+        if (!this.styleChanger) {
+            return;
+        }
         this.status = !this.status;
     }
     /**
@@ -57,6 +60,9 @@ export class Button extends GUIElement {
      * OFF  -> Imposta come sfondo la prima immagine.
      */
     changeBakgroundImage() {
+        if (!this.styleChanger) {
+            return;
+        }
         if (this.status) {
             if (this.scrSecondImage != "") {
                 this.element.style.backgroundImage = `url(${this.scrSecondImage})`;

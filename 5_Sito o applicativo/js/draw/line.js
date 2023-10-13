@@ -10,8 +10,7 @@ export class Line extends DrawingElement {
         //
         this.points = [];
         this.points.push();
-        this.canvas = document.getElementById("drawingpage");
-        this.element = this.canvas.getContext("2d");
+        this.svg = document.getElementById("drawingpage");
     }
     // COSTRUZIONE.
     setStyle() {

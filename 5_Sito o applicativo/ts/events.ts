@@ -1,31 +1,21 @@
 import { Point } from "./draw/point.js";
+import { mouseClicks, mousePosition, pageSize, windowsSize, punti, controls, puntiNumerati } from "./counters.js";
 import * as operations from "./operations.js"
+import { NumberedPoint } from "./draw/numberedPoint.js";
 
 /**
  * @author Lorenzo Di Stefano
  * @version 22.09.2023
  */
 
-// DICHIARAZIONE VARIABILI.
-
-var mouseClicks: number = 0;
-var mouseIsClicking: boolean = false;
-var pointSelected: boolean = false;
-var punti: Point[] = [];
-
-var mousePosition = {
-    x: 0,
-    y: 0
-}
-
-var pageSize = {
-    x: 0,
-    y: 0
-};
-
 function getPageInfo(): void{
     pageSize.x = document.body.clientWidth;
     pageSize.y = document.body.clientHeight;
+}
+
+function getWindowInfo(){
+    windowsSize.x = window.innerWidth;
+    windowsSize.y = window.innerHeight;
 }
 
 function getMouseInfo(event: any): void{
@@ -34,10 +24,11 @@ function getMouseInfo(event: any): void{
 }
 
 function resetPoints(){
-    for(var punto of punti){
-        punto.isMoving = false;
+    for(var puntoNumerato of puntiNumerati){
+        puntoNumerato.getPoint().isMoving = false;
     }
-    pointSelected = false;
+    controls.point.selected = false;
+    console.log("Deselected")
 }
 
 
@@ -48,7 +39,7 @@ function pageClickEvent(){
 }
 
 function pageMoveEvent(){
-    mouseMove();
+    mouseMove(false);
     mouseSelect();
     pencil();
     eraser();
@@ -57,36 +48,39 @@ function pageMoveEvent(){
 function mouseSelect(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if(operations.actions.useMouse){
-        for(var punto of punti){
-            if(punto.getIsMoving() || pointSelected){
+        for(var puntoNumerato of puntiNumerati){
+            if(puntoNumerato.getPoint().getIsMoving() || controls.point.selected){
                 return;
             }
-            punto.checkIsMoving(mousePosition.x,mousePosition.y);
-            if(punto.getIsMoving()){
-                pointSelected = true;
+            puntoNumerato.getPoint().checkIsMoving(mousePosition.x,mousePosition.y);
+            if(puntoNumerato.getPoint().getIsMoving()){
+                controls.point.selected = true;
+                console.log("Selected")
             }
         }
     }
 }
 
-function mouseMove(){
+function mouseMove(destro:boolean){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if(operations.actions.useMouse){
-        for(var punto of punti){
-            if(punto.getIsMoving()){
-                punto.move(mousePosition.x,mousePosition.y);
+        for(var puntoNumerato of puntiNumerati){
+            if(puntoNumerato.getPoint().getIsMoving()&&destro){
+                puntoNumerato.remove();
+            }else if(puntoNumerato.getPoint().getIsMoving()){
+                puntoNumerato.move(mousePosition.x,mousePosition.y);
+                console.log(puntoNumerato.getPoint().position.x+":"+puntoNumerato.getPoint().position.y);
             }
-            console.log(punto.getIsMoving());
-            punto.draw();
         }
-        console.log("============"+ punti.length);
     }
 }
 
 function point(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO POINT
     if(operations.actions.insertPoint){
-        punti.push(new Point(5,String(punti.length),mousePosition.x,mousePosition.y));
+        //punti.push(new Point(5,String(punti.length),mousePosition.x,mousePosition.y));
+        puntiNumerati.push(new NumberedPoint(String(puntiNumerati.length),mousePosition.x,mousePosition.y));
+        console.log(puntiNumerati.length);
     }
 }
 
@@ -122,7 +116,8 @@ drawingPage.addEventListener(
     () => {
         getPageInfo();
         getMouseInfo(event);
-        if(mouseIsClicking){
+        getWindowInfo();
+        if(controls.mouse.clicked){
             pageMoveEvent();
         }else{
             resetPoints();
@@ -135,7 +130,7 @@ drawingPage.addEventListener(
 drawingPage.addEventListener(
     "mousedown", 
     () => {
-        mouseIsClicking = true;
+        controls.mouse.clicked = true;
     }
 );
 
@@ -144,6 +139,13 @@ drawingPage.addEventListener(
 drawingPage.addEventListener(
     "mouseup", 
     () => {
-        mouseIsClicking = false;
+        controls.mouse.clicked = false;
     }
 );
+
+document.body.addEventListener("contextmenu", function(event){
+    event?.preventDefault();
+    if(operations.actions.useMouse){
+        mouseMove(true);
+    }
+});

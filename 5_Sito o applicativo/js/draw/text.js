@@ -6,18 +6,30 @@ import { DrawingElement } from "./drawingElement.js";
 export class Text extends DrawingElement {
     //punto;
     constructor(id, x, y) {
-        // Super
         super(id);
-        this.canvas = document.getElementById("drawingpage");
-        // Point
-        //this.punto = new Point("0",x,y);
-        // Creazione elemento HTML
-        this.element = this.canvas.getContext("2d");
-        //this.element.id = this.id;
-        this.setStyle();
+        this.position.x = x;
+        this.position.y = y;
+        // Costruzione del Text nel SVG.
+        this.svg = document.getElementById("drawingpage");
+        this.element = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        // Metodi di costruzione.
+        this.draw();
     }
-    setStyle() {
-        this.element.font = "90% Arial Black";
-        this.element.strokeText("Hello World", this.position.x, this.position.y);
+    // AZIONI
+    move(x, y) {
+        this.position.x = x;
+        this.position.y = y;
+        this.element.setAttribute("x", String(this.position.x));
+        this.element.setAttribute("y", String(this.position.y));
+    }
+    draw() {
+        this.element.setAttribute("x", String(this.position.x));
+        this.element.setAttribute("y", String(this.position.y));
+        this.element.setAttribute("fill", this.color);
+        this.element.textContent = this.id;
+        this.svg.appendChild(this.element);
+    }
+    remove() {
+        this.svg.removeChild(this.element);
     }
 }

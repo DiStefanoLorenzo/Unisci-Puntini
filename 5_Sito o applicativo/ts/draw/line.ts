@@ -21,8 +21,7 @@ export class Line extends DrawingElement{
         this.points = [];
         this.points.push();
 
-        this.canvas = document.getElementById("drawingpage") as HTMLCanvasElement;
-        this.element = this.canvas.getContext("2d")!;
+        this.svg = document.getElementById("drawingpage") as HTMLElement;
     }
 
     // COSTRUZIONE.

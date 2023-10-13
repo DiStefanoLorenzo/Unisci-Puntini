@@ -9,10 +9,12 @@ export class DrawingElement {
             x: 0,
             y: 0
         };
-        this.canvas = document.getElementById("drawingpage");
-        this.element = this.canvas.getContext("2d");
+        this.svg = document.getElementById("drawingpage");
         this.width = 0;
         this.height = 0;
         this.layer = 1;
+        this.size = 1;
+        this.color = "black";
+        this.visible = true;
     }
 }

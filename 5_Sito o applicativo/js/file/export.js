@@ -1,12 +1,16 @@
 "use strict";
-// Creazione delle variabili conteneti gli elementi HTML.
+// Creazione delle variabili contenenti gli elementi HTML.
 const outputEsportaImmagine = document.getElementById('esporta-immagine');
-const canvas = document.getElementById('drawingpage');
-// Evento che richiama la funzione per importare l'immagine.
+const svgElement = document.getElementById('drawingpage'); // Assicurati di avere un elemento SVG con un id appropriato.
+// Evento che richiama la funzione per esportare l'immagine SVG.
 outputEsportaImmagine.addEventListener('click', function () {
-    const dataURL = canvas.toDataURL("image/png");
+    const svgXML = new XMLSerializer().serializeToString(svgElement);
+    const svgBlob = new Blob([svgXML], { type: "image/svg+xml" });
+    const svgURL = URL.createObjectURL(svgBlob);
     const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "image.png";
+    link.href = svgURL;
+    link.download = "image.svg"; // Modifica l'estensione del file se necessario
     link.click();
+    // Rilascia l'URL creato dopo l'esportazione.
+    URL.revokeObjectURL(svgURL);
 });
