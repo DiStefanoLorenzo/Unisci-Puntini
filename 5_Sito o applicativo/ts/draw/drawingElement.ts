@@ -1,3 +1,4 @@
+import * as counters from "../counters.js";
 
 /**
  * @author Lorenzo Di Stefano
@@ -35,7 +36,7 @@ export class DrawingElement{
         this.layer  = 1;
         this.size   = 1;
 
-        this.color  = "black";
+        this.color  = counters.controls.values.color;
 
         this.visible = true;
     }

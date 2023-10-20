@@ -13,6 +13,9 @@ export var controls = {
     },
     point: {
         selected: false
+    },
+    values: {
+        color: "black"
     }
 };
 export var mousePosition = {
@@ -27,3 +30,12 @@ export var windowsSize = {
     x: 0,
     y: 0
 };
+export function removeNumberedPoint() {
+    var nuovoPunti = [];
+    for (var punto of puntiNumerati) {
+        if (!punto.getIsRemoved()) {
+            nuovoPunti.push(punto);
+        }
+    }
+    puntiNumerati = nuovoPunti;
+}

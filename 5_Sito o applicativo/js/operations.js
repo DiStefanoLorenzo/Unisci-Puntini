@@ -1,4 +1,5 @@
 import * as main from "./main.js";
+import * as counters from "./counters.js";
 /**
  * @author Lorenzo Di Stefano
  * @version 29.09.2023
@@ -6,7 +7,7 @@ import * as main from "./main.js";
 export var actions = {
     useMouse: false,
     insertPoint: false,
-    insertSquare: false,
+    insertLine: false,
     insertCircle: false,
     draw: false,
     cancel: false
@@ -30,12 +31,10 @@ export function actionsReset() {
     // Actions.
     actions.useMouse = false;
     actions.insertPoint = false;
-    actions.insertSquare = false;
+    actions.insertLine = false;
     actions.insertCircle = false;
     actions.draw = false;
     actions.cancel = false;
-    // Reset contatori.
-    //mouseClicks = 0;
 }
 export function buttonsReset() {
     // 1
@@ -47,8 +46,8 @@ export function buttonsReset() {
         main.POINT_BTN.reset();
     }
     // 3
-    if (main.SQUARE_BTN.getStatus() && !actions.insertSquare) {
-        main.SQUARE_BTN.reset();
+    if (main.LINE_BTN.getStatus() && !actions.insertLine) {
+        main.LINE_BTN.reset();
     }
     // 4
     if (main.CIRCLE_BTN.getStatus() && !actions.insertCircle) {
@@ -80,10 +79,10 @@ export function insertPoint() {
     buttonsReset();
 }
 // 3
-export function insertSquare() {
+export function insertLine() {
     actionsReset();
-    if (main.SQUARE_BTN.getStatus()) {
-        actions.insertSquare = true;
+    if (main.LINE_BTN.getStatus()) {
+        actions.insertLine = true;
     }
     buttonsReset();
 }
@@ -110,4 +109,14 @@ export function cancel() {
         actions.cancel = true;
     }
     buttonsReset();
+}
+// OPZIONI
+// Cambia Colore
+export function changeColor() {
+    const parentElement = main.COLOR_BTN.getElement();
+    const childInput = parentElement.querySelector('input');
+    if (childInput) {
+        counters.controls.values.color = childInput.value;
+        parentElement.style.backgroundColor = counters.controls.values.color;
+    }
 }

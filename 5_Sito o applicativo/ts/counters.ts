@@ -20,6 +20,9 @@ export var controls = {
     },
     point: {
         selected: false
+    },
+    values: {
+        color: "black"
     }
 }
 
@@ -36,4 +39,14 @@ export var pageSize = {
 export var windowsSize = {
     x: 0,
     y: 0
+}
+
+export function removeNumberedPoint(): void{
+    var nuovoPunti: NumberedPoint[] = [];
+    for(var punto of puntiNumerati) {
+        if(!punto.getIsRemoved()){
+            nuovoPunti.push(punto);
+        }
+    }
+    puntiNumerati = nuovoPunti;
 }

@@ -8,6 +8,7 @@ import { Text } from "./text.js";
  */
 
 export class NumberedPoint extends DrawingElement{
+    protected isRemoved: boolean;
     //protected point: Point;
     protected text: Text;
     protected point: Point;
@@ -26,6 +27,7 @@ export class NumberedPoint extends DrawingElement{
         super(id);
         this.position.x = x;
         this.position.y = y;
+        this.isRemoved = false;
         // Oggetti.;
         this.text = new Text(
             "."+this.id,
@@ -48,6 +50,10 @@ export class NumberedPoint extends DrawingElement{
         return this.text;
     }
 
+    getIsRemoved(): boolean{
+        return this.isRemoved;
+    }
+
     move(x: number, y: number): void{
         this.position.x = x;
         this.position.y = y;
@@ -58,5 +64,6 @@ export class NumberedPoint extends DrawingElement{
     remove(): void{
         this.point.remove();
         this.text.remove();
+        this.isRemoved = true;
     }
 }
