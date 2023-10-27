@@ -25,9 +25,17 @@ export class Point extends DrawingElement {
     getIsMoving() {
         return this.isMoving;
     }
+    getPosition() {
+        return this.position;
+    }
     // SETTERS
     setIsMoving(value) {
         this.isMoving = value;
+    }
+    setId(value) {
+        if (value > 0) {
+            this.id = "p" + value;
+        }
     }
     // CONTROLLI
     checkIsMoving(x, y) {

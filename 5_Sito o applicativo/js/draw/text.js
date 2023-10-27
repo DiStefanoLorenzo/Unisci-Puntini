@@ -15,6 +15,16 @@ export class Text extends DrawingElement {
         // Metodi di costruzione.
         this.draw();
     }
+    // SETTERS
+    setId(value) {
+        if (value > 0) {
+            this.id = "." + value;
+            this.setTextContent();
+        }
+    }
+    setTextContent() {
+        this.element.textContent = this.id;
+    }
     // AZIONI
     move(x, y) {
         this.position.x = x;

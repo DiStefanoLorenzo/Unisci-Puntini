@@ -41,10 +41,20 @@ export class Point extends DrawingElement{
         return this.isMoving;
     }
 
+    getPosition(): any{
+        return this.position;
+    }
+
     // SETTERS
 
     setIsMoving(value: boolean): void {
         this.isMoving = value;
+    }
+
+    setId(value: number){
+        if(value > 0){
+            this.id = "p"+value;
+        }
     }
 
     // CONTROLLI

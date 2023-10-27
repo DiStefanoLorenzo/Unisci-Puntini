@@ -26,6 +26,19 @@ export class Text extends DrawingElement{
         this.draw();
     }
 
+    // SETTERS
+
+    setId(value: number): void{
+        if(value > 0){
+            this.id = "."+value;
+            this.setTextContent();
+        }
+    }
+
+    setTextContent(): void{
+        this.element.textContent = this.id;
+    }
+
     // AZIONI
 
     move(x:number, y:number): void{

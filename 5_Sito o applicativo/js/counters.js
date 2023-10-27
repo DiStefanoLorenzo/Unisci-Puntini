@@ -13,6 +13,9 @@ export var controls = {
     },
     point: {
         selected: false
+    },
+    values: {
+        color: "black"
     }
 };
 export var mousePosition = {
@@ -27,3 +30,44 @@ export var windowsSize = {
     x: 0,
     y: 0
 };
+export function removeNumberedPoint() {
+    var nuovoPunti = [];
+    for (var punto of puntiNumerati) {
+        if (!punto.getIsRemoved()) {
+            nuovoPunti.push(punto);
+        }
+    }
+    puntiNumerati = nuovoPunti;
+    renumberNumberedPoints();
+}
+export function renumberNumberedPoints() {
+    var puntiNumeratiVecchio = puntiNumerati;
+    var puntiNumeratiNuovo = [];
+    var indice = puntiNumerati.length;
+    for (var i = 0; i < indice; i++) {
+        for (var ii = 0; ii < puntiNumeratiVecchio.length; ii++) {
+            if (puntiNumeratiVecchio[ii].getId() == minNumberedPoint()) {
+                puntiNumeratiVecchio[ii].renumber(i + 1);
+                puntiNumeratiNuovo.push(puntiNumeratiVecchio[ii]);
+                puntiNumeratiVecchio.splice(ii, 1);
+                puntiNumerati = puntiNumeratiVecchio;
+                break;
+            }
+        }
+        puntiNumeratiVecchio = puntiNumerati;
+    }
+    puntiNumerati = puntiNumeratiNuovo;
+}
+// MIN
+function minNumberedPoint() {
+    if (puntiNumerati.length == 0) {
+        return 0;
+    }
+    var min = puntiNumerati[0].getId();
+    for (var puntoNumerato of puntiNumerati) {
+        if (min > puntoNumerato.getId()) {
+            min = puntoNumerato.getId();
+        }
+    }
+    return min;
+}

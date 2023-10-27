@@ -1,7 +1,8 @@
 import { Point } from "./draw/point.js";
-import { mouseClicks, mousePosition, pageSize, windowsSize, punti, controls, puntiNumerati } from "./counters.js";
+import * as counters from "./counters.js";
 import * as operations from "./operations.js"
 import { NumberedPoint } from "./draw/numberedPoint.js";
+import { Line } from "./draw/line.js";
 
 /**
  * @author Lorenzo Di Stefano
@@ -9,29 +10,31 @@ import { NumberedPoint } from "./draw/numberedPoint.js";
  */
 
 function getPageInfo(): void{
-    pageSize.x = document.body.clientWidth;
-    pageSize.y = document.body.clientHeight;
+    counters.pageSize.x = document.body.clientWidth;
+    counters.pageSize.y = document.body.clientHeight;
 }
 
 function getWindowInfo(){
-    windowsSize.x = window.innerWidth;
-    windowsSize.y = window.innerHeight;
+    counters.windowsSize.x = window.innerWidth;
+    counters.windowsSize.y = window.innerHeight;
 }
 
 function getMouseInfo(event: any): void{
-    mousePosition.x = event.clientX - pageSize.x/4;
-    mousePosition.y = event.clientY - 60;
+    counters.mousePosition.x = event.clientX - counters.pageSize.x/4;
+    counters.mousePosition.y = event.clientY - 60;
 }
 
 function resetPoints(){
-    for(var puntoNumerato of puntiNumerati){
+    for(var puntoNumerato of counters.puntiNumerati){
         puntoNumerato.getPoint().isMoving = false;
     }
-    controls.point.selected = false;
+    counters.controls.point.selected = false;
     console.log("Deselected")
 }
 
-
+var linea = new Line("a",40,40);
+linea.addPoint(100,100);
+linea.addPoint(300,200);
 
 
 function pageClickEvent(){
@@ -48,15 +51,19 @@ function pageMoveEvent(){
 function mouseSelect(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if(operations.actions.useMouse){
-        for(var puntoNumerato of puntiNumerati){
-            if(puntoNumerato.getPoint().getIsMoving() || controls.point.selected){
-                return;
-            }
-            puntoNumerato.getPoint().checkIsMoving(mousePosition.x,mousePosition.y);
-            if(puntoNumerato.getPoint().getIsMoving()){
-                controls.point.selected = true;
-                console.log("Selected")
-            }
+        selectNumberedPoint()
+    }
+}
+
+function selectNumberedPoint(){
+    for(var puntoNumerato of counters.puntiNumerati){
+        if(puntoNumerato.getPoint().getIsMoving() || counters.controls.point.selected){
+            return;
+        }
+        puntoNumerato.getPoint().checkIsMoving(counters.mousePosition.x,counters.mousePosition.y);
+        if(puntoNumerato.getPoint().getIsMoving()){
+            counters.controls.point.selected = true;
+            console.log("Selected")
         }
     }
 }
@@ -64,12 +71,12 @@ function mouseSelect(){
 function mouseMove(destro:boolean){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if(operations.actions.useMouse){
-        for(var puntoNumerato of puntiNumerati){
+        for(var puntoNumerato of counters.puntiNumerati){
             if(puntoNumerato.getPoint().getIsMoving()&&destro){
                 puntoNumerato.remove();
+                counters.removeNumberedPoint();
             }else if(puntoNumerato.getPoint().getIsMoving()){
-                puntoNumerato.move(mousePosition.x,mousePosition.y);
-                console.log(puntoNumerato.getPoint().position.x+":"+puntoNumerato.getPoint().position.y);
+                puntoNumerato.move(counters.mousePosition.x,counters.mousePosition.y);
             }
         }
     }
@@ -78,9 +85,8 @@ function mouseMove(destro:boolean){
 function point(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO POINT
     if(operations.actions.insertPoint){
-        //punti.push(new Point(5,String(punti.length),mousePosition.x,mousePosition.y));
-        puntiNumerati.push(new NumberedPoint(String(puntiNumerati.length),mousePosition.x,mousePosition.y));
-        console.log(puntiNumerati.length);
+        counters.puntiNumerati.push(new NumberedPoint(String(counters.puntiNumerati.length+1),counters.mousePosition.x,counters.mousePosition.y));
+        console.log(counters.puntiNumerati.length);
     }
 }
 
@@ -102,12 +108,6 @@ function eraser(){
 
 const drawingPage = document.getElementById("drawingpage") as HTMLElement;
 
-// MOUSE CLICK
-
-drawingPage.addEventListener(
-    "click",
-    pageClickEvent
-);
 
 // MOUSE MOVE
 
@@ -117,7 +117,7 @@ drawingPage.addEventListener(
         getPageInfo();
         getMouseInfo(event);
         getWindowInfo();
-        if(controls.mouse.clicked){
+        if(counters.controls.mouse.clicked){
             pageMoveEvent();
         }else{
             resetPoints();
@@ -130,7 +130,7 @@ drawingPage.addEventListener(
 drawingPage.addEventListener(
     "mousedown", 
     () => {
-        controls.mouse.clicked = true;
+        counters.controls.mouse.clicked = true;
     }
 );
 
@@ -139,9 +139,11 @@ drawingPage.addEventListener(
 drawingPage.addEventListener(
     "mouseup", 
     () => {
-        controls.mouse.clicked = false;
+        counters.controls.mouse.clicked = false;
     }
 );
+
+// MOUSE CLICK DESTRO
 
 document.body.addEventListener("contextmenu", function(event){
     event?.preventDefault();
@@ -149,3 +151,10 @@ document.body.addEventListener("contextmenu", function(event){
         mouseMove(true);
     }
 });
+
+// MOUSE CLICK
+
+drawingPage.addEventListener(
+    "click",
+    pageClickEvent
+);
