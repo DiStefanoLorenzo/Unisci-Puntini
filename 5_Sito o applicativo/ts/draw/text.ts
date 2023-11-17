@@ -1,3 +1,4 @@
+import * as counters from "../counters.js";
 import {DrawingElement} from "./drawingElement.js"
 
 /**
@@ -44,14 +45,15 @@ export class Text extends DrawingElement{
     move(x:number, y:number): void{
         this.position.x = x;
         this.position.y = y;
-        this.element.setAttribute("x"  , String(this.position.x));
-        this.element.setAttribute("y"  , String(this.position.y));
+        this.element.setAttribute("x"           , String(this.position.x));
+        this.element.setAttribute("y"           , String(this.position.y));
     }
 
     draw(): void {
-        this.element.setAttribute("x"  , String(this.position.x));
-        this.element.setAttribute("y"  , String(this.position.y));
-        this.element.setAttribute("fill", this.color);
+        this.element.setAttribute("x"           , String(this.position.x));
+        this.element.setAttribute("y"           , String(this.position.y));
+        this.element.setAttribute("font-size"   , counters.controls.values.size * 15 + "px")
+        this.element.setAttribute("fill"        , this.color);
 
         this.element.textContent = this.id;
         this.svg.appendChild(this.element);            

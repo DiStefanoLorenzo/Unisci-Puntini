@@ -67,14 +67,14 @@ export class Button extends GUIElement {
             if (this.scrSecondImage != "") {
                 this.element.style.backgroundImage = `url(${this.scrSecondImage})`;
                 this.element.style.backgroundColor = "gray";
-                this.element.style.border = "solid";
+                this.element.style.borderColor = "black";
             }
         }
         else {
             if (this.scrFirstImage != "") {
                 this.element.style.backgroundImage = `url(${this.scrFirstImage})`;
                 this.element.style.backgroundColor = "white";
-                this.element.style.border = "none";
+                this.element.style.borderColor = "white";
             }
         }
     }

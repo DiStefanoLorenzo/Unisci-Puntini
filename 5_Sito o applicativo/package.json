@@ -1,5 +1,17 @@
 {
   "dependencies": {
     "typescript": "^5.2.2"
-  }
+  },
+  "devDependencies": {
+    "qunit": "^2.20.0"
+  },
+  "name": "5_sito-o-applicativo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "qunit"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

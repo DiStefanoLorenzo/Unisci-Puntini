@@ -1,3 +1,4 @@
+import * as counters from "../counters.js";
 import { DrawingElement } from "./drawingElement.js";
 /**
  * @author Lorenzo Di Stefano
@@ -35,6 +36,7 @@ export class Text extends DrawingElement {
     draw() {
         this.element.setAttribute("x", String(this.position.x));
         this.element.setAttribute("y", String(this.position.y));
+        this.element.setAttribute("font-size", counters.controls.values.size * 15 + "px");
         this.element.setAttribute("fill", this.color);
         this.element.textContent = this.id;
         this.svg.appendChild(this.element);

@@ -13,8 +13,6 @@ export class DrawingElement{
     protected height: number;  
     protected size  : number;
 
-    protected layer : number;
-
     protected color : string;
 
     protected visible : boolean;
@@ -33,8 +31,7 @@ export class DrawingElement{
 
         this.width  = 0;
         this.height = 0;
-        this.layer  = 1;
-        this.size   = 1;
+        this.size   = 2;
 
         this.color  = counters.controls.values.color;
 

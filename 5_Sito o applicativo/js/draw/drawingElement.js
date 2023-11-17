@@ -13,8 +13,7 @@ export class DrawingElement {
         this.svg = document.getElementById("drawingpage");
         this.width = 0;
         this.height = 0;
-        this.layer = 1;
-        this.size = 1;
+        this.size = 2;
         this.color = counters.controls.values.color;
         this.visible = true;
     }

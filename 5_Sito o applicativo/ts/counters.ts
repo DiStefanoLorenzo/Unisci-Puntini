@@ -1,5 +1,6 @@
 import { Point } from "./draw/point.js";
 import { NumberedPoint } from "./draw/numberedPoint.js";
+import { Line } from "./draw/line.js";
 
 
 /**
@@ -9,21 +10,35 @@ import { NumberedPoint } from "./draw/numberedPoint.js";
 
 // DICHIARAZIONE VARIABILI.
 
-export var mouseClicks: number      = 0;
-export var punti: Point[]           = [];
-export var puntiNumerati: NumberedPoint[] = [];
+export var mouseClicks: number              = 0;
+export var punti: Point[]                   = [];
+export var pencil: Line[]                   = [];
+export var linee:  Line[]                   = [];
+export var puntiNumerati: NumberedPoint[]   = [];
 
 export var controls = {
     mouse: {
-        clicked: false,
-        clicks: 0
+        clicked:    false,
+        click:      0,
+        clicks:     0
     },
     point: {
         selected: false
     },
     values: {
-        color: "black"
+        color:  "black",
+        size:   1
+    },
+    layers: {
+        extended:   false,
+        one:        true,
+        two:        true,
+        three:      true
     }
+}
+
+export var obj = {
+    lineaAutogenerata: new Line("",0,0)
 }
 
 export var mousePosition = {

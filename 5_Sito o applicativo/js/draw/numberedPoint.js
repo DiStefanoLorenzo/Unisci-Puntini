@@ -1,3 +1,4 @@
+import * as counters from "../counters.js";
 import { DrawingElement } from "./drawingElement.js";
 import { Point } from "./point.js";
 import { Text } from "./text.js";
@@ -17,8 +18,8 @@ export class NumberedPoint extends DrawingElement {
         this.position.y = y;
         this.isRemoved = false;
         // Oggetti.;
-        this.text = new Text("." + this.id, this.position.x, this.position.y - 10);
-        this.point = new Point(5, "p" + this.id, this.position.x, this.position.y);
+        this.text = new Text("." + this.id, this.position.x, this.position.y - counters.controls.values.size * 10);
+        this.point = new Point(counters.controls.values.size * 5, "p" + this.id, this.position.x, this.position.y);
     }
     // GETTERS
     getId() {

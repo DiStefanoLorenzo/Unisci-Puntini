@@ -1,3 +1,4 @@
+import { Line } from "./draw/line.js";
 /**
  * @author Lorenzo Di Stefano
  * @version 13.10.2023
@@ -5,18 +6,31 @@
 // DICHIARAZIONE VARIABILI.
 export var mouseClicks = 0;
 export var punti = [];
+export var pencil = [];
+export var linee = [];
 export var puntiNumerati = [];
 export var controls = {
     mouse: {
         clicked: false,
+        click: 0,
         clicks: 0
     },
     point: {
         selected: false
     },
     values: {
-        color: "black"
+        color: "black",
+        size: 1
+    },
+    layers: {
+        extended: false,
+        one: true,
+        two: true,
+        three: true
     }
+};
+export var obj = {
+    lineaAutogenerata: new Line("", 0, 0)
 };
 export var mousePosition = {
     x: 0,
