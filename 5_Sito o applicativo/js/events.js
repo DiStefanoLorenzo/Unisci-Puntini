@@ -14,6 +14,10 @@ function resetPoints() {
     counters.controls.point.selected = false;
 }
 function pageClickEvent() {
+    functionTool.circle(true);
+    if (operations.actions.insertCircle) {
+        counters.controls.mouse.clicks++;
+    }
     functionTool.point();
     functionTool.line();
 }
@@ -34,7 +38,7 @@ function mouseMove(destro) {
             }
             else if (counters.puntiNumerati[i].getPoint().getIsMoving()) {
                 counters.puntiNumerati[i].move(counters.mousePosition.x, counters.mousePosition.y);
-                counters.obj.lineaAutogenerata.moveLine(i, counters.mousePosition.x, counters.mousePosition.y);
+                counters.obj.lineaAutogenerata.move(i, counters.mousePosition.x, counters.mousePosition.y);
             }
         }
     }
@@ -64,6 +68,8 @@ drawingPage.addEventListener("click", pageClickEvent);
 drawingPage.addEventListener("mousemove", () => {
     functionHelp.getMouseInfo(event);
     functionHelp.getInfos();
+    functionTool.circle(false);
+    console.log(counters.controls.mouse.clicks);
     if (counters.controls.mouse.clicked) {
         pageMoveEvent();
     }

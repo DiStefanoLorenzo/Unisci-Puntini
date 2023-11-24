@@ -13,7 +13,6 @@ export class Eraser extends DrawingElement{
         y: 0
     };
 
-
     constructor(
         protected radius: number,
         id: string,

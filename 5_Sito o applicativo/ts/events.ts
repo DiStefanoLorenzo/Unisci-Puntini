@@ -7,6 +7,7 @@ import { NumberedPoint } from "./draw/numberedPoint.js";
 import { Point } from "./draw/point.js";
 import { Line } from "./draw/line.js";
 import { Eraser } from "./draw/eraser.js";
+import { Circle } from "./draw/circle.js";
 
 /**
  * @author Lorenzo Di Stefano
@@ -21,6 +22,10 @@ function resetPoints(){
 }
 
 function pageClickEvent(){
+    functionTool.circle(true);
+    if(operations.actions.insertCircle){
+        counters.controls.mouse.clicks++;
+    }
     functionTool.point();
     functionTool.line();
 }
@@ -43,7 +48,7 @@ function mouseMove(destro:boolean){
                 counters.removeNumberedPoint();
             }else if(counters.puntiNumerati[i].getPoint().getIsMoving()){
                 counters.puntiNumerati[i].move(counters.mousePosition.x,counters.mousePosition.y);
-                counters.obj.lineaAutogenerata.moveLine(i,counters.mousePosition.x,counters.mousePosition.y);
+                counters.obj.lineaAutogenerata.move(i,counters.mousePosition.x,counters.mousePosition.y);
             }
         }
     }
@@ -97,6 +102,8 @@ drawingPage.addEventListener(
     () => {
         functionHelp.getMouseInfo(event);
         functionHelp.getInfos();
+        functionTool.circle(false);
+        console.log(counters.controls.mouse.clicks);
         if(counters.controls.mouse.clicked){
             pageMoveEvent();
         }else{

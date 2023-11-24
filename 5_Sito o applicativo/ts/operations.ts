@@ -130,18 +130,6 @@ export function cancel(){
 
 // OPZIONI
 
-// Cambia Colore
-
-export function changeColor(): void{
-    const parentElement = main.COLOR_BTN.getElement();
-    const childInput = parentElement.querySelector('input');
-    if (childInput) {
-        counters.controls.values.color = childInput.value;
-        parentElement.style.backgroundColor = counters.controls.values.color;
-    }
-    parentElement.style.backgroundColor = counters.controls.values.color;
-}
-
 export function incSize(){
     if(counters.controls.values.size<5){
         counters.controls.values.size++;
@@ -161,7 +149,7 @@ export function extendLayersSection(){
     const LAYERS_SECTION = document.getElementById("layerssection") as HTMLElement;
     counters.controls.layers.extended = !counters.controls.layers.extended;
     if(counters.controls.layers.extended){
-        LAYERS_SECTION.style.width = "30%";
+        LAYERS_SECTION.style.width = "400px";
     }else{
         LAYERS_SECTION.style.width = "5%";
     }
@@ -201,4 +189,26 @@ export function layerTwo(){
 // 3
 export function layerThree(){
     counters.controls.layers.three = !counters.controls.layers.three;
+    for(var linea of counters.linee){
+        if(counters.controls.layers.three){
+            linea.getElement().style.display = "block";
+        }else{
+            linea.getElement().style.display = "none";
+        }
+    }
+    for(var circle of counters.circles){
+        if(counters.controls.layers.three){
+            circle.getElement().style.display = "block";
+        }else{
+            circle.getElement().style.display = "none";
+        }
+    }
+
+    for(var pencil of counters.pencil){
+        if(counters.controls.layers.three){
+            pencil.getElement().style.display = "block";
+        }else{
+            pencil.getElement().style.display = "none";
+        }
+    }
 }

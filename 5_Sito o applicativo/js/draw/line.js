@@ -16,11 +16,6 @@ export class Line extends DrawingElement {
         this.svg = document.getElementById("drawingpage");
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
     }
-    // COSTRUZIONE.
-    setStyle() {
-        this.element.font = "90% Arial Black";
-        this.element.strokeText("Hello World", this.position.x, this.position.y);
-    }
     // GETTERS
     getPoints() {
         return this.points;
@@ -31,11 +26,21 @@ export class Line extends DrawingElement {
         this.points.push(new Point(1, String(id), x, y));
         this.coordinate = "";
         for (var i = 0; i < this.points.length; i++) {
+            this.points[i].getElement().style.display = "none";
             this.coordinate += " " + this.points[i].getPosition().x + "," + this.points[i].getPosition().y;
         }
         this.draw();
     }
-    moveLine(index, x, y) {
+    removePoint(index) {
+        this.points[index].remove();
+        this.points.splice(index, 1);
+        this.coordinate = "";
+        for (var i = 0; i < this.points.length; i++) {
+            this.coordinate += " " + this.points[i].getPosition().x + "," + this.points[i].getPosition().y;
+        }
+        this.draw();
+    }
+    move(index, x, y) {
         this.points[index].getPosition().x = x;
         this.points[index].getPosition().y = y;
         this.points[index].move(x, y);

@@ -30,14 +30,6 @@ export class Line extends DrawingElement{
         );
     }
 
-    // COSTRUZIONE.
-
-    setStyle(){
-        this.element.font = "90% Arial Black";
-        this.element.strokeText("Hello World",this.position.x,this.position.y);
-        
-    }
-
     // GETTERS
 
     getPoints(){
@@ -46,9 +38,20 @@ export class Line extends DrawingElement{
 
     // AZIONI
 
-    public addPoint(x:number,y:number): any{
+    public addPoint(x:number,y:number): void{
         var id = "lp"+this.points.length;
         this.points.push(new Point(1,String(id),x,y));
+        this.coordinate = "";
+        for(var i=0;i<this.points.length;i++){
+            this.points[i].getElement().style.display = "none";
+            this.coordinate += " "+this.points[i].getPosition().x+","+this.points[i].getPosition().y;
+        }
+        this.draw();
+    }
+
+    public removePoint(index:number): void{
+        this.points[index].remove();
+        this.points.splice(index,1);
         this.coordinate = "";
         for(var i=0;i<this.points.length;i++){
             this.coordinate += " "+this.points[i].getPosition().x+","+this.points[i].getPosition().y;
@@ -56,7 +59,7 @@ export class Line extends DrawingElement{
         this.draw();
     }
 
-    public moveLine(index: number, x:number, y:number){
+    public move(index: number, x:number, y:number){
         this.points[index].getPosition().x = x;
         this.points[index].getPosition().y = y;
         this.points[index].move(x,y);

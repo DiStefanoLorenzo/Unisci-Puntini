@@ -1,6 +1,7 @@
 import { Point } from "./draw/point.js";
 import { NumberedPoint } from "./draw/numberedPoint.js";
 import { Line } from "./draw/line.js";
+import { Circle } from "./draw/circle.js";
 
 
 /**
@@ -14,6 +15,7 @@ export var mouseClicks: number              = 0;
 export var punti: Point[]                   = [];
 export var pencil: Line[]                   = [];
 export var linee:  Line[]                   = [];
+export var circles: Circle[]                = [];
 export var puntiNumerati: NumberedPoint[]   = [];
 
 export var controls = {
@@ -58,9 +60,11 @@ export var windowsSize = {
 
 export function removeNumberedPoint(): void{
     var nuovoPunti: NumberedPoint[] = [];
-    for(var punto of puntiNumerati) {
-        if(!punto.getIsRemoved()){
-            nuovoPunti.push(punto);
+    for(var i=0;i<puntiNumerati.length;i++) {
+        if(!puntiNumerati[i].getIsRemoved()){
+            nuovoPunti.push(puntiNumerati[i]);
+        }else{
+            obj.lineaAutogenerata.removePoint(i);
         }
     }
     puntiNumerati = nuovoPunti;

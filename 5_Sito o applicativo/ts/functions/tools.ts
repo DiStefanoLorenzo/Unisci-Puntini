@@ -5,6 +5,8 @@ import { Point } from "../draw/point.js";
 import { NumberedPoint } from "../draw/numberedPoint.js";
 import { Line } from "../draw/line.js";
 import { Eraser } from "../draw/eraser.js";
+import { Circle } from "../draw/circle.js";
+
 
 /**
  * @author Lorenzo Di Stefano
@@ -104,10 +106,23 @@ function generateSolution(x:number, y:number){
 //              << CIRCLE >>
 // =====================================
 
-export function circle(){
+export function circle(create: boolean){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO CIRCLE
     if(operations.actions.insertCircle){
-        
+        if(counters.controls.mouse.clicks==0 && create){
+            counters.circles.push(new Circle(
+                "",
+                counters.mousePosition.x,
+                counters.mousePosition.y
+            ));
+        }else if(counters.controls.mouse.clicks==1){
+            counters.circles[counters.circles.length-1].preview(
+                counters.mousePosition.x,
+                counters.mousePosition.y
+            );
+        }else{
+            counters.controls.mouse.clicks = 0;
+        }
     }
 }
 

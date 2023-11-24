@@ -8,6 +8,7 @@ export var mouseClicks = 0;
 export var punti = [];
 export var pencil = [];
 export var linee = [];
+export var circles = [];
 export var puntiNumerati = [];
 export var controls = {
     mouse: {
@@ -46,9 +47,12 @@ export var windowsSize = {
 };
 export function removeNumberedPoint() {
     var nuovoPunti = [];
-    for (var punto of puntiNumerati) {
-        if (!punto.getIsRemoved()) {
-            nuovoPunti.push(punto);
+    for (var i = 0; i < puntiNumerati.length; i++) {
+        if (!puntiNumerati[i].getIsRemoved()) {
+            nuovoPunti.push(puntiNumerati[i]);
+        }
+        else {
+            obj.lineaAutogenerata.removePoint(i);
         }
     }
     puntiNumerati = nuovoPunti;

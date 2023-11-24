@@ -2,6 +2,7 @@ import * as operations from "../operations.js";
 import * as counters from "../counters.js";
 import { NumberedPoint } from "../draw/numberedPoint.js";
 import { Line } from "../draw/line.js";
+import { Circle } from "../draw/circle.js";
 /**
  * @author Lorenzo Di Stefano
  * @version 10.11.2023
@@ -70,9 +71,18 @@ function generateSolution(x, y) {
 // =====================================
 //              << CIRCLE >>
 // =====================================
-export function circle() {
+export function circle(create) {
     // CONTROLLA CHE SIA IN USO LO STRUMENTO CIRCLE
     if (operations.actions.insertCircle) {
+        if (counters.controls.mouse.clicks == 0 && create) {
+            counters.circles.push(new Circle("", counters.mousePosition.x, counters.mousePosition.y));
+        }
+        else if (counters.controls.mouse.clicks == 1) {
+            counters.circles[counters.circles.length - 1].preview(counters.mousePosition.x, counters.mousePosition.y);
+        }
+        else {
+            counters.controls.mouse.clicks = 0;
+        }
     }
 }
 // =====================================
