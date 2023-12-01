@@ -91,6 +91,10 @@ export class Point extends DrawingElement{
     }
 
     remove(): void{
-        this.svg.removeChild(this.element);
+        try{
+            this.svg.removeChild(this.element);
+        }catch{
+            
+        }
     }
 }

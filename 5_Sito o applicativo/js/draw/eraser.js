@@ -20,11 +20,11 @@ export class Eraser extends DrawingElement {
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     }
     // GETTERS
-    getArea(x, y) {
-        if (x >= (this.position.x - this.radius * 2 * counters.controls.values.size) &&
-            y >= (this.position.y - this.radius * 2 * counters.controls.values.size) &&
-            x <= (this.position.x + this.radius * 2 * counters.controls.values.size) &&
-            y <= (this.position.y + this.radius * 2 * counters.controls.values.size)) {
+    getArea(radius = 0, x, y) {
+        if (x + radius >= (this.position.x - this.radius * 2 * counters.controls.values.size) &&
+            y + radius >= (this.position.y - this.radius * 2 * counters.controls.values.size) &&
+            x - radius <= (this.position.x + this.radius * 2 * counters.controls.values.size) &&
+            y - radius <= (this.position.y + this.radius * 2 * counters.controls.values.size)) {
             return true;
         }
         else {
@@ -43,14 +43,23 @@ export class Eraser extends DrawingElement {
         try {
             this.lines();
             this.pencil();
+            this.circles();
         }
         catch (_a) {
+        }
+    }
+    circles() {
+        for (var i = 0; i < counters.circles.length; i++) {
+            if (this.getArea(counters.circles[i].getRadius(), counters.circles[i].getPoint().getPosition().x, counters.circles[i].getPoint().getPosition().y)) {
+                counters.circles[i].remove();
+                return;
+            }
         }
     }
     lines() {
         for (var i = 0; i < counters.linee.length; i++) {
             for (var ii = 0; ii < counters.linee[i].getPoints().length; ii++) {
-                if (this.getArea(counters.linee[i].getPoints()[ii].getPosition().x, counters.linee[i].getPoints()[ii].getPosition().y)) {
+                if (this.getArea(0, counters.linee[i].getPoints()[ii].getPosition().x, counters.linee[i].getPoints()[ii].getPosition().y)) {
                     counters.linee[i].remove();
                     return;
                 }
@@ -60,7 +69,7 @@ export class Eraser extends DrawingElement {
     pencil() {
         for (var i = 0; i < counters.pencil.length; i++) {
             for (var ii = 0; ii < counters.pencil[i].getPoints().length; ii++) {
-                if (this.getArea(counters.pencil[i].getPoints()[ii].getPosition().x, counters.pencil[i].getPoints()[ii].getPosition().y)) {
+                if (this.getArea(0, counters.pencil[i].getPoints()[ii].getPosition().x, counters.pencil[i].getPoints()[ii].getPosition().y)) {
                     counters.pencil[i].remove();
                     return;
                 }

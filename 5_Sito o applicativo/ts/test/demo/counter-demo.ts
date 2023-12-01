@@ -1,4 +1,7 @@
 import * as counters from "../../counters.js";
+// Classi
+import { NumberedPoint } from "../../draw/numberedPoint.js";
+
 /**
  * @author Lorenzo Di Stefano
  * @version 10.11.2023

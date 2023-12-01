@@ -13,7 +13,7 @@ import { Circle } from "../draw/circle.js";
  * @version 10.11.2023
  */
 
-
+export var gomma = new Eraser(5,"",-30,-30);
 
 // =====================================
 //              << MOUSE >>
@@ -23,6 +23,31 @@ export function mouseSelect(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if(operations.actions.useMouse){
         selectNumberedPoint()
+    }
+}
+
+export function mouseMove(){
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
+    if(operations.actions.useMouse){
+        interactSelectedPoint();
+    }
+}
+
+// Controlla co quale Puntino Numerato si sta interagendo.
+function interactSelectedPoint(){
+    for(var i=0;i<counters.puntiNumerati.length;i++){
+        if(
+            counters.puntiNumerati[i].getPoint().getIsMoving()   &&
+            counters.controls.mouse.right
+        ){
+            counters.puntiNumerati[i].remove();
+            counters.removeNumberedPoint();
+        }else if(
+            counters.puntiNumerati[i].getPoint().getIsMoving()
+        ){
+            counters.puntiNumerati[i].move(counters.mousePosition.x,counters.mousePosition.y);
+            counters.obj.lineaAutogenerata.move(i,counters.mousePosition.x,counters.mousePosition.y);
+        }
     }
 }
 
@@ -106,21 +131,29 @@ function generateSolution(x:number, y:number){
 //              << CIRCLE >>
 // =====================================
 
-export function circle(create: boolean){
+export function circle(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO CIRCLE
     if(operations.actions.insertCircle){
-        if(counters.controls.mouse.clicks==0 && create){
+        // CONTROLLA CHE SI POSSA CREARE UN NUOVO CERCHIO
+        if(
+            counters.controls.mouse.clicks==0   &&
+            counters.controls.circle.create
+        ){
             counters.circles.push(new Circle(
                 "",
                 counters.mousePosition.x,
                 counters.mousePosition.y
             ));
+            counters.controls.circle.create = false;
+        // CONTROLLA CHE SI POSSA MODIFICARE IL CERCHIO
         }else if(counters.controls.mouse.clicks==1){
             counters.circles[counters.circles.length-1].preview(
                 counters.mousePosition.x,
                 counters.mousePosition.y
             );
+        // RESETTA I VALORI
         }else{
+            counters.controls.circle.create = true;
             counters.controls.mouse.clicks = 0;
         }
     }
@@ -156,11 +189,16 @@ export function pencil(){
 // =====================================
 
 
-export function eraser(gomma: Eraser){
+export function eraser(){
     // CONTROLLA CHE SIA IN USO LO STRUMENTO ERASER
     if(operations.actions.cancel){
-        gomma.draw();
-        gomma.move(counters.mousePosition.x,counters.mousePosition.y);
-        gomma.remove();
+        if(counters.controls.mouse.click==0){
+            gomma.draw();
+            gomma.move(counters.mousePosition.x,counters.mousePosition.y);
+            gomma.remove();
+            counters.controls.mouse.click++
+        }else{
+            gomma.move(counters.mousePosition.x,counters.mousePosition.y);
+        }
     }
 }

@@ -71,10 +71,14 @@ export class Line extends DrawingElement{
     }
 
     public remove(){
-        for(var i=0;i<this.points.length;i++){
-            this.points[i].remove();
+        try{
+            for(var i=0;i<this.points.length;i++){
+                this.points[i].remove();
+            }
+            this.svg.removeChild(this.element);
+        }catch{
+
         }
-        this.svg.removeChild(this.element);
     }
 
     private draw(): void{

@@ -18,10 +18,13 @@ export class Circle extends DrawingElement {
         this.draw();
     }
     // GETTERS
-    getPoints() {
+    getPoint() {
         return this.point;
     }
-    getRadius(x, y) {
+    getRadius() {
+        return this.radius;
+    }
+    getRadiusSize(x, y) {
         var deltaX = Math.abs(this.point.position.x - x);
         var deltaY = Math.abs(this.point.position.y - y);
         this.radius = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
@@ -29,7 +32,7 @@ export class Circle extends DrawingElement {
     }
     // AZIONI
     preview(x, y) {
-        this.element.setAttribute("r", String(this.getRadius(x, y)));
+        this.element.setAttribute("r", String(this.getRadiusSize(x, y)));
     }
     draw() {
         this.element.setAttribute("cx", String(this.position.x));
@@ -37,5 +40,9 @@ export class Circle extends DrawingElement {
         this.element.setAttribute("r", String(0));
         this.element.setAttribute("fill", this.color);
         this.svg.appendChild(this.element);
+    }
+    remove() {
+        this.svg.removeChild(this.element);
+        this.point.remove();
     }
 }

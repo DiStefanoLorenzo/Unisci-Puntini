@@ -20,7 +20,7 @@ export const ERASER_BTN = new Button(operations.cancel              ,"../img/era
 export const LINE_BTN   = new Button(operations.insertLine          ,"../img/line.png"      ,"../img/line.png"          ,true   ,"toolbtn5"); 
 export const CIRCLE_BTN = new Button(operations.insertCircle        ,"../img/circle.png"    ,"../img/circle.png"        ,true   ,"toolbtn6"); 
 
-export const COLOR_BTN  = new Button(operations.nothing         ,"../img/palette.png"   ,"../img/palette.png"       ,false  ,"toolbtn7");  
+export const COLOR_BTN  = new Button(operations.nothing             ,"../img/palette.png"   ,"../img/palette.png"       ,false  ,"toolbtn7");  
 export const SIZE_BTN   = new Button(operations.incSize             ,"../img/1.png"         ,"../img/1.png"             ,false  ,"toolbtn8");  
 
 // Bottone per espandere il menu dei layer.

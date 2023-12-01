@@ -1,3 +1,4 @@
+// Classi
 import { Point } from "./draw/point.js";
 import { NumberedPoint } from "./draw/numberedPoint.js";
 import { Line } from "./draw/line.js";
@@ -21,11 +22,15 @@ export var puntiNumerati: NumberedPoint[]   = [];
 export var controls = {
     mouse: {
         clicked:    false,
+        right:      false,
         click:      0,
         clicks:     0
     },
     point: {
         selected: false
+    },
+    circle: {
+        create:     true
     },
     values: {
         color:  "black",
@@ -91,7 +96,6 @@ export function renumberNumberedPoints(): void{
         }
         puntiNumeratiVecchio = puntiNumerati;
     }
-
     puntiNumerati = puntiNumeratiNuovo;
 }
 

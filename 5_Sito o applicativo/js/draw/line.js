@@ -51,10 +51,14 @@ export class Line extends DrawingElement {
         this.draw();
     }
     remove() {
-        for (var i = 0; i < this.points.length; i++) {
-            this.points[i].remove();
+        try {
+            for (var i = 0; i < this.points.length; i++) {
+                this.points[i].remove();
+            }
+            this.svg.removeChild(this.element);
         }
-        this.svg.removeChild(this.element);
+        catch (_a) {
+        }
     }
     draw() {
         this.element.setAttribute("points", this.coordinate);

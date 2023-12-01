@@ -13,11 +13,15 @@ export var puntiNumerati = [];
 export var controls = {
     mouse: {
         clicked: false,
+        right: false,
         click: 0,
         clicks: 0
     },
     point: {
         selected: false
+    },
+    circle: {
+        create: true
     },
     values: {
         color: "black",

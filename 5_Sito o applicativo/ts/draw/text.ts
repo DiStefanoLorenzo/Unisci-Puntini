@@ -27,6 +27,12 @@ export class Text extends DrawingElement{
         this.draw();
     }
 
+    // GETTERS
+
+    getId(){
+        return this.id;
+    }
+
     // SETTERS
 
     setId(value: number): void{
@@ -60,6 +66,10 @@ export class Text extends DrawingElement{
     }
 
     remove(): void{
-        this.svg.removeChild(this.element);
+        try{
+            this.svg.removeChild(this.element);
+        }catch{
+            
+        }
     }
 }

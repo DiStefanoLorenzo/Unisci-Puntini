@@ -29,8 +29,19 @@
                 </div>
                 <div class="menuElements">
                     <button id="esporta-immagine" style="display: none;"></button>
-                    <label for="esporta-immagine" id="label-esporta-immagine">Esporta immagine</label>
-                    
+                    <label for="esporta-immagine" id="label-esporta-immagine">Esporta immagine (SVG)</label>
+                </div>
+                <div class="menuElements">
+                    <button id="esporta-immagine-png" style="display: none;"></button>
+                    <label for="esporta-immagine-png" id="label-esporta-immagine-png">Esporta immagine (PNG)</label>
+                </div>
+                <div class="menuElements">
+                    <button id="esporta-immagine-jpg" style="display: none;"></button>
+                    <label for="esporta-immagine-jpg" id="label-esporta-immagine-jpg">Esporta immagine (JPG)</label>
+                </div>
+                <div class="menuElements">
+                    <button id="esporta-immagine-webb" style="display: none;"></button>
+                    <label for="esporta-immagine-webb" id="label-esporta-immagine-webb">Esporta immagine (WEBB)</label>
                 </div>
             </div>
 
@@ -48,10 +59,12 @@
                 <div class="toollabel">Opzioni</div>
                 <center>
                     <button class="toolbutton" id="toolbtn7"><input type="color" id="color-input"></button>
-                    <button class="toolbutton" id="toolbtn8"></button>
+                    <button class="toolbutton" id="toolbtn8"><input type="color" id="color-input" disabled></button>
                 </center>
-                <div class="toollabel">Opzioni</div>
+                <!--
+                <div class="toollabel">Dev</div>
                 <a href="./test/test.html">Test</a>
+                -->
             </div>
 
             <!-- Layer -->
@@ -82,6 +95,10 @@
             <script type="module" src="./js/draw/text.js"></script>
             <script type="module" src="./js/file/import.js"></script>
             <script type="module" src="./js/file/export.js"></script>
+            <script type="module" src="./js/file/export-png.js"></script>
+            <script type="module" src="./js/file/export-jpg.js"></script>
+            <script type="module" src="./js/file/export-webb.js"></script>
+            <script type="module" src="./js/functions/infoHelp.js"></script>
         </section>
     </body>
 </html>

@@ -5,6 +5,8 @@ import * as counters from "../counters.js";
  * @version 10.11.2023
  */
 
+var scrollElement = document.getElementById("page") as HTMLElement;
+
 export function getPageInfo(): void{
     counters.pageSize.x = document.body.clientWidth;
     counters.pageSize.y = document.body.clientHeight;
@@ -16,7 +18,7 @@ export function getWindowInfo(){
 }
 
 export function getMouseInfo(event: any): void{
-    counters.mousePosition.x = event.clientX - counters.pageSize.x/4;
+    counters.mousePosition.x = event.clientX - counters.pageSize.x/4 + scrollElement.scrollLeft;
     counters.mousePosition.y = event.clientY - 60;
 }
 

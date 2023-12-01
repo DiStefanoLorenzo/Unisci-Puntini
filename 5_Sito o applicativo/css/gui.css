@@ -138,6 +138,7 @@ input[type="color"]{
     background-color: rgb(90, 96, 97);
     position: absolute;
     height: auto;
+    min-width: 95px;
     width: 20%;
     max-width: 200px;
     top: 70px;
@@ -159,4 +160,27 @@ input[type="color"]{
 #hamb {
     margin: 10px;
     padding: 0%;
+}
+
+/*=====================================*/
+/* STAMPA */
+
+@media print {
+    button{
+        display: none;
+    }
+
+    #layerssection{
+        display: none;
+    }
+
+    #tools{
+        display: none;
+    }
+
+    #page{
+        margin: 0;
+        display: block;
+        width: 100%;
+    }
 }

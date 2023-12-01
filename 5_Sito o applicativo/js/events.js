@@ -2,46 +2,31 @@ import * as counters from "./counters.js";
 import * as operations from "./operations.js";
 import * as functionTool from "./functions/tools.js";
 import * as functionHelp from "./functions/infoHelp.js";
-import { Eraser } from "./draw/eraser.js";
 /**
  * @author Lorenzo Di Stefano
  * @version 22.09.2023
  */
-function resetPoints() {
+export function resetPoints() {
     for (var puntoNumerato of counters.puntiNumerati) {
         puntoNumerato.getPoint().isMoving = false;
     }
     counters.controls.point.selected = false;
 }
-function pageClickEvent() {
-    functionTool.circle(true);
-    if (operations.actions.insertCircle) {
-        counters.controls.mouse.clicks++;
-    }
-    functionTool.point();
-    functionTool.line();
+// Esegue le funzioni ad ogni click sulla pagina di disegno.
+export function pageClickEvent() {
+    functionTool.circle(); // Inserisce un Cerchio.            (se attivo)
+    functionTool.point(); // Inserisce un Puntino Numerato.   (se attivo)
+    functionTool.line(); // Inserisce un Segmento.           (se attivo)
+    counters.controls.mouse.clicks++; // Incrementa il contatore.         (azioni eseguite dalla pressione)
 }
-var gomma = new Eraser(5, "", -30, -30);
-function pageMoveEvent() {
-    mouseMove(false);
-    functionTool.mouseSelect();
-    functionTool.pencil();
-    functionTool.eraser(gomma);
-}
-function mouseMove(destro) {
-    // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
-    if (operations.actions.useMouse) {
-        for (var i = 0; i < counters.puntiNumerati.length; i++) {
-            if (counters.puntiNumerati[i].getPoint().getIsMoving() && destro) {
-                counters.puntiNumerati[i].remove();
-                counters.removeNumberedPoint();
-            }
-            else if (counters.puntiNumerati[i].getPoint().getIsMoving()) {
-                counters.puntiNumerati[i].move(counters.mousePosition.x, counters.mousePosition.y);
-                counters.obj.lineaAutogenerata.move(i, counters.mousePosition.x, counters.mousePosition.y);
-            }
-        }
-    }
+// Esegue le funzioni al movimento del mouse cliccato sulla pagina di disegno.
+export function pageClickedMoveEvent() {
+    counters.controls.mouse.right = false; // Resetta il controllo del click destro.
+    // tools.ts
+    functionTool.mouseMove(); // Sposta il Puntino Numerato selezionato.  (se attivo)
+    functionTool.mouseSelect(); // Seleziona il Puntino Numerato cliccato.  (se attivo)
+    functionTool.pencil(); // Disegna                                  (se attivo)
+    functionTool.eraser(); // Mostra e muove la gomma                  (se attivo)
 }
 // EVENTI PAGINA DI DISEGNO.
 const drawingPage = document.getElementById("drawingpage");
@@ -53,25 +38,30 @@ drawingPage.addEventListener("mousedown", () => {
 drawingPage.addEventListener("mouseup", () => {
     counters.controls.mouse.clicked = false;
     counters.controls.mouse.click = 0;
-    gomma.unDraw();
+    try {
+        functionTool.gomma.unDraw();
+    }
+    catch (_a) { } // Rimuove la gomma.
 });
 // MOUSE CLICK DESTRO
 document.body.addEventListener("contextmenu", function (event) {
     event === null || event === void 0 ? void 0 : event.preventDefault();
+    // CONTROLLA CHE SIA IN USO LO STRUMENTO MOUSE
     if (operations.actions.useMouse) {
-        mouseMove(true);
+        counters.controls.mouse.right = true; // Imposta il valore al controllo del click destro.
+        functionTool.mouseMove(); // Elimina Il Puntino Numerato selezionato.
     }
 });
 // MOUSE CLICK
 drawingPage.addEventListener("click", pageClickEvent);
 // MOUSE MOVE
 drawingPage.addEventListener("mousemove", () => {
-    functionHelp.getMouseInfo(event);
-    functionHelp.getInfos();
-    functionTool.circle(false);
-    console.log(counters.controls.mouse.clicks);
+    functionHelp.getMouseInfo(event); // Aggiorna la poszione del mouse.
+    functionHelp.getInfos(); // Aggiorna i valori della pagina.
+    functionTool.circle(); //
+    // CONTROLLA CHE IL MOUSE SIA PREMUTO
     if (counters.controls.mouse.clicked) {
-        pageMoveEvent();
+        pageClickedMoveEvent();
     }
     else {
         resetPoints();

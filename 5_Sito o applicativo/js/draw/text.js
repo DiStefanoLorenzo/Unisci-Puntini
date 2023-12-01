@@ -16,6 +16,10 @@ export class Text extends DrawingElement {
         // Metodi di costruzione.
         this.draw();
     }
+    // GETTERS
+    getId() {
+        return this.id;
+    }
     // SETTERS
     setId(value) {
         if (value > 0) {
@@ -42,6 +46,10 @@ export class Text extends DrawingElement {
         this.svg.appendChild(this.element);
     }
     remove() {
-        this.svg.removeChild(this.element);
+        try {
+            this.svg.removeChild(this.element);
+        }
+        catch (_a) {
+        }
     }
 }
